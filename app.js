@@ -18,13 +18,21 @@ app.get('/', (req, res) => {
 })
 
 const booksApiRoutes = require('./api/booksApi')
-const genresApiRoutes = require('./api/genresAPI')
+const genresApiRoutes = require('./api/genresApi')
+const dessertsApiRoutes = require('./api/dessertsApi')
+const drinksApiRoutes = require('./api/drinksApi')
+
+const openingHoursApiRoutes = require('./api/openingHoursApi')
 
 const cartApiRoutes = require('./api/cartApi')
-const usersApiRoutes = require('./api/usersAPI')
+const usersApiRoutes = require('./api/usersApi')
 
 app.use('/books', booksApiRoutes)
 app.use('/genres', genresApiRoutes)
+app.use('/desserts', dessertsApiRoutes)
+app.use('/drinks', drinksApiRoutes)
+
+app.use('/opening-hours', openingHoursApiRoutes)
 
 app.use('/cart', cartApiRoutes)
 app.use('/users', usersApiRoutes)
