@@ -2,7 +2,7 @@ const Drink = require('../models/drinkModel')
 
 const getDrinks = async (req, res) => {
     try {
-        const drinks = await Book.find()
+        const drinks = await Drink.find()
 
         res.send(drinks)
 

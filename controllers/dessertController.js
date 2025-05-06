@@ -2,7 +2,7 @@ const Dessert = require('../models/dessertModel')
 
 const getDesserts = async (req, res) => {
     try {
-        const desserts = await Book.find()
+        const desserts = await Dessert.find()
 
         res.send(desserts)
 
