@@ -21,6 +21,8 @@ const booksApiRoutes = require('./api/booksApi')
 const genresApiRoutes = require('./api/genresApi')
 const dessertsApiRoutes = require('./api/dessertsApi')
 const drinksApiRoutes = require('./api/drinksApi')
+const capybarasApiRoutes = require('./api/capybarasApi')
+const reviewsApiRoutes = require('./api/reviewsApi')
 
 const openingHoursApiRoutes = require('./api/openingHoursApi')
 
@@ -31,6 +33,8 @@ app.use('/books', booksApiRoutes)
 app.use('/genres', genresApiRoutes)
 app.use('/desserts', dessertsApiRoutes)
 app.use('/drinks', drinksApiRoutes)
+app.use('/capybaras', capybarasApiRoutes)
+app.use('/reviews', reviewsApiRoutes)
 
 app.use('/opening-hours', openingHoursApiRoutes)
 
