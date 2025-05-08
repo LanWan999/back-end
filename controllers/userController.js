@@ -35,7 +35,8 @@ const register = async (req, res) => {
 
         res.send({ message: 'User registered successfully' })
     } catch (error) {
-        res.status(500).send(error)
+        console.error('Error in registration:', error); 
+        res.status(500).send({ message: 'Something went wrong, please try again later.' });
     }
 }
 
@@ -115,7 +116,7 @@ const updateUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
     try {
-        const users = await User.find()
+        const users = await User.find().populate('favoriteDessert').populate('favoriteDrink')
 
         console.log('GET /users endpoint hit')
 
@@ -130,7 +131,7 @@ const getUsers = async (req, res) => {
 const getUserById = async (req, res) => {
     try {
         const { id } = req.params
-        const user = await User.findById(id)
+        const user = await User.findById(id).populate('favoriteDessert').populate('favoriteDrink')
         if (!user) {
             return res.status(404).send({ error: 'User not found' })
         }
@@ -159,12 +160,54 @@ const deleteUser = async (req, res) => {
     }
 }
 
+const updateUserRole = async (req, res) => {
+    const { id } = req.params; 
+    const { role } = req.body;
+
+    if (!['USER', 'ADMIN'].includes(role)) {
+        return res.status(400).send({ message: 'Invalid role' });
+    }
+
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        if (req.user.role !== 'ADMIN') {
+            return res.status(403).send({ message: 'Forbidden' });
+        }
+
+        user.role = role;
+        await user.save();
+
+        res.send({ message: 'User role updated successfully', user });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
+
+const createUser = async (req, res) => {
+    try {
+        console.log('REQ.BODY:', req.body)
+        const user = new User(req.body)
+        await user.save()
+        res.send(user)
+
+    } catch (error) {
+        console.error('CREATE USER ERROR:', error)
+        res.status(500).send(error)
+    }
+}
+
 
 module.exports = {
-    register,    //veikia kaip iprastas create route siuo atveju?
+    register,    
     login,
     getUsers,
     getUserById,
     updateUser,
-    deleteUser
+    deleteUser,
+    updateUserRole,
+    createUser
 }

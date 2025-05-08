@@ -70,7 +70,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: Object.values(ROLES),
         default: ROLES.USER,
-    }
+    },
+
+    favoriteDessert: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Dessert',  
+    },
+
+    favoriteDrink: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Drink',  
+    },
 
 }, { timestamps: true })
 

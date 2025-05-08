@@ -33,7 +33,6 @@ const bookSchema = new mongoose.Schema({
     price: {
         type: Number,
         required: true,
-        unique: true,
     }
 
 }, { timestamps: true })
