@@ -10,12 +10,15 @@ const colors = require('colors')
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
     res.json({ message: 'App is running!' })
 })
+
+app.use(cors({
+    origin: 'https://capy-bookshop.netlify.app'
+}));
 
 const booksApiRoutes = require('./api/booksApi')
 const genresApiRoutes = require('./api/genresApi')
